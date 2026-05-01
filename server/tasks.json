@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": "8b7dd0ca-36c0-4987-a5fe-1982df9f478e",
+    "title": "Exam Study",
+    "completed": true
+  },
+  {
+    "id": "5f8ed03a-3e9b-446c-bb2f-65ebb997a8a9",
+    "title": "Laundry",
+    "completed": false
+  },
+  {
+    "id": "67146af2-8dca-42ab-aaf3-54a40f19bc56",
+    "title": "Dishes",
+    "completed": false
+  }
+]
