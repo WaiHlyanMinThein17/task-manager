@@ -1,9 +1,11 @@
+// Initialize express app
 const express = require('express')
 const cors = require('cors')
 const {v4 : uuidv4} = require('uuid')
 const fs = require('fs')
 const path = require('path')
 
+// Middleware
 const app = express()
 const PORT = 3001
 const DATA_FILE = path.join(__dirname, 'tasks.json')
@@ -11,6 +13,7 @@ const DATA_FILE = path.join(__dirname, 'tasks.json')
 app.use(cors())
 app.use(express.json())
 
+// Read tasks from JSON file
 function readTasks() {
     if (fs.existsSync(DATA_FILE)) {
         const data = fs.readFileSync(DATA_FILE, 'utf-8')
@@ -20,15 +23,18 @@ function readTasks() {
     }
 }
 
+// Write tasks to JSON file
 function writeTasks(tasks) { 
     fs.writeFileSync(DATA_FILE, JSON.stringify(tasks, null, 2))
 }
 
+// Get all tasks
 app.get('/tasks', (req, res) => {
     const tasks = readTasks()
     res.json(tasks)
 })
 
+// Create a new task
 app.post('/tasks', (req, res) => {
     const tasks = readTasks()
     const newTask = {
@@ -41,6 +47,7 @@ app.post('/tasks', (req, res) => {
     res.status(201).json(newTask)
 })
 
+// Toggle task completion
 app.patch('/tasks/:id', (req, res) => {
     const tasks = readTasks()
     const task = tasks.find(t => t.id === req.params.id)
@@ -50,6 +57,7 @@ app.patch('/tasks/:id', (req, res) => {
     res.json(task)
 })
 
+// Delete a task
 app.delete('/tasks/:id', (req, res) => {
     const tasks = readTasks()
     const updatedTasks = tasks.filter(t => t.id !== req.params.id)

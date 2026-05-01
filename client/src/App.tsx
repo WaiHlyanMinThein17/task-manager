@@ -11,12 +11,14 @@ export default function App() {
   const [tasks, setTasks] = useState<Task[]>([])
   const [input, setInput] = useState("")
 
+  // Fetch tasks from API on component mount
   useEffect(() => {
     fetch('http://localhost:3001/tasks')
       .then(res => res.json())
       .then(data => setTasks(data))
   }, [])
 
+  // Add a new task
   function addTask() {
     if (input === "") return
     fetch('http://localhost:3001/tasks', {
@@ -31,6 +33,7 @@ export default function App() {
       })
   }
 
+  // Toggle completed status
   function toggleTask(id: string) {
     fetch(`http://localhost:3001/tasks/${id}`, {
       method: 'PATCH'
@@ -41,6 +44,7 @@ export default function App() {
       })
   }
 
+  // Delete a task
   function deleteTask(id: string) {
     fetch(`http://localhost:3001/tasks/${id}`, {
       method: 'DELETE'
